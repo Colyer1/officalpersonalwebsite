@@ -1,0 +1,33 @@
+/* Add your custom styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #quiz-container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .question {
+            margin-bottom: 15px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        #quiz-container {
+            font-family: Roboto, Arial;
+            color: white;
+            display: flex;
+            flex-direction: column;
+
+        }
+

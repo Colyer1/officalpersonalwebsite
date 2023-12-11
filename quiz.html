@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customizable Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/quiz.css">
+</head>
+<body style="background-color: rgb(31,32,34)">
+
+    <div id="quiz-container">
+
+        <h2 class="audios">
+            <audio controls autoplay>
+                <source src="styles/sound.mp3" type="audio/mpeg">
+            </audio>
+        </h2>
+        <h1> Colyer's Quiz</h1>
+
+        <!-- Customize your questions here -->
+        <div class="question">
+            <p>1. What is Curry Coin?</p>
+            <input type="radio" name="q1" value="stephen">A) A crypto coin made by NBA Star Stephen Curry
+            <input type="radio" name="q1" value="rishva">B) A coin by Rishva Patel
+            <input type="radio" name="q1" value="jimmy">C) A disgusting coin made by Jimmy
+        </div>
+
+        <div class="question">
+            <p>
+                2. Who does this image depict on the night of April 3rd
+                <div class="wilt-icon">
+                <img src="icons/wilt.png">
+                </div>
+            </p>
+            <input type="radio" name="q2" value="luke"> Luke
+            <input type="radio" name="q2" value="griffin"> Griffin
+            <input type="radio" name="q2" value="samir"> Samir
+        </div>
+
+         <div class="question">
+            <p>3. Which Franklin County Legend holds the all-time freshman slays record (9)</p>
+            <input type="radio" name="q3" value="jesse"> Jesse Thurman
+            <input type="radio" name="q3" value="zac"> Zac Cox
+            <input type="radio" name="q3" value="jwebb"> Jimmy Webb
+             <input type="radio" name="q3" value="ache"> Andrew Chenault
+        </div>
+
+        <div class="question">
+            <p>4. Which of the following is Coach Moore's Eskimo Bro</p>
+            <input type="radio" name="q4" value="luket">A) Luke
+            <input type="radio" name="q4" value="jweb">B) Jimmy Webb
+            <input type="radio" name="q4" value="cjame">C) Coach James
+            <input type="radio" name="q4" value="lile">C) Lil E
+        </div>
+
+        <div class="question">
+            <p>5. Love is:</p>
+            <input type="radio" name="q5" value="landon">A) Landon
+            <input type="radio" name="q5" value="mutf">B) A Mutual Feeling
+            <input type="radio" name="q5" value="swan">C) Ava Swan
+        </div>
+
+        <div class="question">
+            <p>6. Who is MB?</p>
+            <input type="radio" name="q6" value="boat">A) Ben's Girlfriend
+            <input type="radio" name="q6" value="case">B) A Case
+            <input type="radio" name="q6" value="mb">C) Someone You'd Risk it all for
+        </div>
+
+        <div class="question">
+            <p>7. Who shoots farther</p>
+            <input type="radio" name="q7" value="hunt">A) Ms Hunt
+            <input type="radio" name="q7" value="sky">B) Skylar Wiley
+            <input type="radio" name="q7" value="cmoore">C) Coach Moore
+        </div>
+
+        <div class="question">
+            <p>8. Spot The Asian</p>
+            <input type="radio" name="q8" value="aj3">A) AJ right eye
+            <input type="radio" name="q8" value="aj2">B) AJ's Peen
+            <input type="radio" name="q8" value="aj1">C) AJ left eye
+        </div>
+
+
+
+        <!-- Add more questions as needed -->
+
+        <button onclick="gradeQuiz()">Submit Answers</button>
+
+        <div id="result"></div>
+
+
+        <div id="progress-bar-container">
+    <div id="progress-bar"></div>
+    </div>
+
+    <script>
+        function gradeQuiz() {
+            const totalQuestions = 8; // Update with the total number of questions
+            let correctAnswers = 0;
+
+            // Check each question and count correct answers
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selectedAnswer = getSelectedAnswer(`q${i}`);
+                const correctAnswer = getCorrectAnswer(i);
+
+                if (selectedAnswer === correctAnswer) {
+                    correctAnswers++;
+                }
+            }
+
+            // Calculate the grade
+            const grade = (correctAnswers / totalQuestions) * 100;
+
+            // Display the result
+            const resultContainer = document.getElementById("result");
+            resultContainer.textContent = `Your grade: ${grade.toFixed(2)}% (${correctAnswers} out of ${totalQuestions} correct)`;
+        }
+
+        function getSelectedAnswer(questionName) {
+            const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+            return selectedOption ? selectedOption.value : null;
+        }
+
+        function getCorrectAnswer(questionNumber) {
+            // Customize correct answers for each question
+            switch (questionNumber) {
+                case 1: return "jimmy";
+                case 2: return "luke";
+                case 3: return "jesse";
+                case 4: return "lile";
+                case 5: return "landon";
+                case 6: return "mb";
+                case 7: return "sky";
+                case 8: return "aj2";
+                // Add more cases for other questions
+                default: return null;
+            }
+        }
+
+    </script>
+
+</body>
+</html>
+<!-- Path: quiz.html -->

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <!-- Add these script tags to the head of your HTML file -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.7.3/sql-wasm.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.7.3/sql-wasm.wasm"></script>
+
+    <title>Name Searcher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/namesearch.css">
+    <link rel="stylesheet" href="styles/header.css">
+  </head>
+  <body style="background-color: rgb(31,32,34)">
+    <header class="header">
+      <div class="left-section">
+
+      </div>
+      <div class="middle-section">
+        <div class="name-middle">
+          <span class="name-search-span">Name Searcher</span>
+        </div>
+      </div>
+      <div class="right-section">
+
+      </div>
+    </header>
+
+     <div id="search-container">
+        <label class="enter-text" for="nameInput">Enter a name:</label>
+        <input type="text" id="nameInput" placeholder="Type a name...">
+        <button onclick="search()">Search</button>
+    </div>
+
+    <div id="result-container">
+        <table id="resultTable">
+            <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Occupation</th>
+                <th>City</th>
+            </tr>
+        </table>
+    </div>
+
+    <button id="upload-toggle-btn" onclick="toggleUploadForm()">Want to add your own information?</button>
+
+    <div id="upload-container">
+        <h2>Upload Your Information</h2>
+        <form id="uploadForm">
+            <label for="uploadName">Name:</label>
+            <input type="text" id="uploadName" name="name" required>
+
+            <label for="uploadGender">Gender:</label>
+            <input type="text" id="uploadGender" name="gender" required>
+
+            <label for="uploadOccupation">Occupation:</label>
+            <input type="text" id="uploadOccupation" name="occupation" required>
+
+            <label for="uploadCity">City:</label>
+            <input type="text" id="uploadCity" name="city" required>
+
+            <button type="button" onclick="upload()">Upload</button>
+        </form>
+    </div>
+
+    <script>
+        const dataList = [
+            { name: "John", gender: "Male", occupation: "Engineer", city: "New York" },
+            { name: "Jane", gender: "Female", occupation: "Teacher", city: "Los Angeles" },
+            // Add more names and information as needed
+        ];
+
+        function search() {
+            const nameInput = document.getElementById("nameInput").value;
+            const resultTable = document.getElementById("resultTable");
+            resultTable.innerHTML = "";
+
+            const resultData = dataList.find(data => data.name === nameInput);
+
+            if (resultData) {
+                const row = resultTable.insertRow();
+                for (const key in resultData) {
+                    const cell = row.insertCell();
+                    cell.textContent = resultData[key];
+                }
+            } else {
+                const row = resultTable.insertRow();
+                const cell = row.insertCell();
+                cell.colSpan = 4;
+                cell.textContent = "Name not found in the list.";
+            }
+        }
+
+        function toggleUploadForm() {
+            const uploadContainer = document.getElementById("upload-container");
+            const uploadToggleButton = document.getElementById("upload-toggle-btn");
+
+            if (uploadContainer.style.display === "none") {
+                uploadContainer.style.display = "block";
+                uploadToggleButton.textContent = "Hide form";
+            } else {
+                uploadContainer.style.display = "none";
+                uploadToggleButton.textContent = "Want to add your own information?";
+            }
+        }
+
+        function upload() {
+            const form = document.getElementById("uploadForm");
+            const formData = new FormData(form);
+
+            const userData = {};
+            formData.forEach((value, key) => {
+                userData[key] = value;
+            });
+
+            dataList.push(userData);
+
+            // Optional: Display the updated data in the console
+            console.log("Updated Data List:", dataList);
+        }
+    </script>
+  </body>
+</html>

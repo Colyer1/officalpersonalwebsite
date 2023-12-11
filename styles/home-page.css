@@ -1,0 +1,28 @@
+
+    .home-page {
+    font-family: Roboto, Arial;
+    font-size: 12px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    }
+
+    .home-page-title-text{
+        font-weight: bold;
+        margin-top: 25px;
+
+    }
+
+    .home-page-content{
+
+    }
+    .name-search-link{
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    .quiz-link{
+        margin-top: 10px;
+        margin-left: 38px;
+    }
+

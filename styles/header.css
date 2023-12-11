@@ -1,0 +1,74 @@
+
+    .header {
+      height: 22px;
+      color: white;
+      display: flex;
+      font-family: Roboto, Arial;
+      font-weight: 500;
+      font-size: 8px;
+      background-color: rgb(44, 45, 45);
+      padding: 10px;
+      left: 0;
+      bottom: 0;
+      align-items: center;
+      justify-content: space-between;
+
+
+    }
+
+    .left-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+    right-section {
+    display: flex;
+    }
+
+    .website-title {
+      font-family: Roboto, Arial;
+      height: 10px;
+      font-size: 8px;
+      color: rgb(255,255,247);
+      display: flex;
+      align-items: center;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      padding-left: 2px;
+      padding-right: 8px;
+      white-space: nowrap;
+    }
+
+    .web-title-text{
+    font-weight: bold;
+    }
+
+
+    .hamburger-icon {
+      height: 16px;
+      border-style: solid;
+      border-color: rgb(48, 54, 61);
+      border-radius: 2px;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      padding-left: 4px;
+      padding-right: 4px;
+
+
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    .github-icon{
+        height: 24px;
+        border-radius: 12px;
+        margin-right: 6px;
+    }
+
+    .instagram-icon{
+        height: 24px;
+        border-radius: 12px;
+
+    }
