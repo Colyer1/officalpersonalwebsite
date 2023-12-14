@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shooting Game</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    canvas {
+      border: 1px solid #000;
+
+    #backgroundM {
+       display: none;
+    }
+  </style>
+</head>
+<body>
+  <audio id="backgroundM" controls autoplay loop>
+    <source src="styles/background.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <canvas id="gameCanvas" width="800" height="400"></canvas>
+  <button id="startOverButton" style="display: none;" onclick="startOver()">Start Over</button>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const player = { x: 50, y: canvas.height / 2, width: 30, height: 30, image: new Image(), speed: 5 };
+    player.image.src = 'icons/player.png';
+
+    const bullets = [];
+    const enemies = [];
+    const enemyImage = new Image();
+    enemyImage.src = 'icons/enemy.png';
+
+    let score = 0;
+
+    let gameOver = false;
+
+    function gameLoop() {
+      if (!gameOver) {
+        update();
+        draw();
+        requestAnimationFrame(gameLoop);
+      }
+    }
+
+    function update() {
+      // Move player
+      if (keys['ArrowUp'] && player.y > 0) player.y -= player.speed;
+      if (keys['ArrowDown'] && player.y + player.height < canvas.height) player.y += player.speed;
+
+      // Move bullets
+      bullets.forEach(bullet => {
+        bullet.x += 5;
+      });
+
+      // Check for collision with enemies
+      bullets.forEach((bullet, bulletIndex) => {
+        enemies.forEach((enemy, enemyIndex) => {
+          if (collision(bullet, enemy)) {
+            bullets.splice(bulletIndex, 1);
+            enemies.splice(enemyIndex, 1);
+            score += 10; // Increase score on hit
+          }
+        });
+      });
+
+      // Move enemies
+      enemies.forEach(enemy => {
+        enemy.x -= 2;
+        // Check for collision with player
+        if (collision(player, enemy)) {
+          gameOver = true;
+        }
+      });
+
+      // Generate enemies at intervals
+      if (Math.random() < 0.02) {
+        const enemy = { x: canvas.width, y: Math.random() * canvas.height, width: 40, height: 40 };
+        enemies.push(enemy);
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw player
+      ctx.drawImage(player.image, player.x, player.y, player.width, player.height);
+
+      // Draw bullets
+      ctx.fillStyle = 'red';
+      bullets.forEach(bullet => ctx.fillRect(bullet.x, bullet.y, 10, 5));
+
+      // Draw enemies
+      enemies.forEach(enemy => {
+        ctx.drawImage(enemyImage, enemy.x, enemy.y, enemy.width, enemy.height);
+      });
+
+      // Draw score
+      ctx.fillStyle = 'black';
+      ctx.font = '20px Arial';
+      ctx.fillText('Score: ' + score, 10, 30);
+
+      // Show "Start Over" button if game is over
+      if (gameOver) {
+        document.getElementById('startOverButton').style.display = 'block';
+      }
+    }
+
+    function collision(rect1, rect2) {
+      return rect1.x < rect2.x + rect2.width &&
+             rect1.x + 10 > rect2.x &&
+             rect1.y < rect2.y + rect2.height &&
+             rect1.y + 5 > rect2.y;
+    }
+
+    // Handle player input
+    const keys = {};
+    window.addEventListener('keydown', (e) => {
+      keys[e.key] = true;
+      if (e.key === ' ') {
+        bullets.push({ x: player.x + player.width, y: player.y + player.height / 2 });
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      keys[e.key] = false;
+    });
+
+    // Function to start over
+    function startOver() {
+      bullets.length = 0;
+      enemies.length = 0;
+      score = 0;
+      gameOver = false;
+      document.getElementById('startOverButton').style.display = 'none';
+      gameLoop();
+    }
+
+    // Initialize game
+    gameLoop();
+  </script>
+</body>
+</html>
